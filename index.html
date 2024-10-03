@@ -10,7 +10,21 @@
 	<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" as="script">
 	<link rel="preload" href="https://unpkg.com/leaflet-ui@0.6.0/dist/leaflet-ui.js" as="script">
 	
-	<style>@import './css/fullpage.css';</style>
+	<style>
+	html,
+	body,
+	.leaflet-map {
+		height: 100%;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+	</style>
 
 	<!-- leaflet-ui -->
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>

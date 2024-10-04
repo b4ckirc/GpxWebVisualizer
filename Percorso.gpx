@@ -1,11 +1,6 @@
 <ns0:gpx xmlns:ns0="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creator="Garmin Connect" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd">
-  <ns0:metadata>
-    <ns0:link href="connect.garmin.com">
-      <ns0:text>Garmin Connect</ns0:text>
-    </ns0:link>
-    </ns0:metadata>
   <ns0:trk>
-    <ns0:name>LLR 25 preview </ns0:name>
+    <ns0:name>Percorso Lazise Love Run</ns0:name>
     <ns0:type>running</ns0:type>
     <ns0:trkseg>
       <ns0:trkpt lat="45.5007203109562397003173828125" lon="10.74066527187824249267578125">

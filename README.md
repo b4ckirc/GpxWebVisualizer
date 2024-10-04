@@ -8,5 +8,7 @@ Questo progetto ha lo scopo di utilizzare alcune librerie JavaScript per rendere
 
 ## Riferimenti alle librerie utilizzate
 
-https://leafletjs.com/
-https://mrmufflon.github.io/Leaflet.Elevation/
+- [ ] [Leaflet JS](https://leafletjs.com/)
+- [ ] [Leaflet Elevation JS](https://mrmufflon.github.io/Leaflet.Elevation/)
+
+

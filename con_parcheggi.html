@@ -1,0 +1,199 @@
+<html>
+
+<head>
+	<title>Percorso</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<link rel="dns-prefetch" href="https://tile.openstreetmap.org">
+	<link rel="dns-prefetch preconnect" href="https://unpkg.com" />
+	<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" as="script">
+	<link rel="preload" href="https://unpkg.com/leaflet-ui@0.6.0/dist/leaflet-ui.js" as="script">
+	
+	<style>
+	html,
+	body,
+	.leaflet-map {
+		height: 100%;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.leaflet-control-layers-base {
+        display: none !important;
+    }
+	
+	.search-button {
+        display: none !important;
+    }
+	
+	.pegman-button {
+	    display: none !important;
+    }
+	
+	.pegman-control {
+	    display: none !important;
+    }
+	
+	.leaflet-control-locate {
+	    display: none !important;
+    }
+	
+	.leaflet-top {
+	    display: none !important;
+    }
+	
+	</style>
+
+	<!-- leaflet-ui -->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet-ui@0.6.0/dist/leaflet-ui.js"></script>
+
+	<!-- leaflet-elevation -->
+	<link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.min.css" />
+	<script src="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.min.js"></script>
+
+</head>
+
+<body>
+
+	<div id="map" class="leaflet-map"></div>
+
+	<script>
+		let opts = {
+			map: {
+				center: [41.4583, 12.7059],
+				zoom: 10,
+				fullscreenControl: false,
+				resizerControl: true,
+				preferCanvas: true,
+				rotate: true,
+				rotateControl: {
+					closeOnZeroBearing: true
+				},
+			},
+			elevationControl: {
+				url: "https://raw.githubusercontent.com/b4ckirc/GpxWebVisualizer/main/Percorso.gpx",
+				options: {
+					theme: "lightblue-theme",
+					collapsed: false,
+					autohide: false,
+					autofitBounds: true,
+					position: "bottomleft",
+					detached: true,
+					summary: "inline",
+					imperial: false,
+					// altitude: "disabled",
+					slope: false,
+					speed: false,
+					acceleration: false,
+					time: false,
+					legend: true,
+					followMarker: true,
+					almostOver: true,
+					distanceMarkers: false,
+					hotline: false,
+				},
+			},
+			layersControl: {
+				options: {
+					collapsed: false,
+				},
+			},
+		};
+		
+		let map = L.map('map', opts.map);
+		
+		const park1 = L.marker([45.503234, 10.738998]).addTo(map)
+		.bindPopup('<b>Parcheggio</b><br />Parcheggio riservato agli atleti in gara.').openPopup();
+		
+		const park2 = L.marker([45.502692, 10.733912]).addTo(map)
+		.bindPopup('<b>Parcheggio</b><br />Parcheggio riservato agli atleti in gara.').openPopup();
+		
+		const park3 = L.marker([45.500271, 10.740516]).addTo(map)
+		.bindPopup('<b>Parcheggio</b><br />Parcheggio riservato agli atleti in gara.').openPopup();
+		
+		let startIcon = L.icon({
+			iconUrl: 'https://unpkg.com/leaflet-gpx/pin-icon-start.png',
+			shadowUrl: 'https://unpkg.com/leaflet-gpx/pin-shadow.png',
+			iconSize: [24, 40],
+			iconAnchor: [12, 40],
+			popupAnchor: [0, -40]
+		});
+
+		let endIcon = L.icon({
+			iconUrl: 'https://unpkg.com/leaflet-gpx/pin-icon-end.png',
+			shadowUrl: 'https://unpkg.com/leaflet-gpx/pin-shadow.png',
+			iconSize: [24, 40],
+			iconAnchor: [12, 40],
+			popupAnchor: [0, -40]
+		});
+
+		let controlElevation = L.control.elevation(opts.elevationControl.options).addTo(map);
+		let controlLayer = L.control.layers(null, null, opts.layersControl.options);				
+
+		controlElevation.on('eledata_loaded', ({layer, name}) => 
+		controlLayer.addTo(map) && 
+		layer.eachLayer(
+		(trkseg) => 		
+		trkseg.feature.geometry.type != "Point" 
+		&& controlLayer.addOverlay(trkseg, trkseg.feature 
+		&& trkseg.feature.properties 
+		&& trkseg.feature.properties.name || name)));
+
+		controlElevation.load(opts.elevationControl.url);
+	</script>
+
+	<!-- i18n -->
+	<script>
+
+		// Register a custom locale
+		L.registerLocale('en:18', {
+			"Acceleration"      : "Acceleration",
+			"Altitude"          : "Elevation",
+			"Slope"             : "Slope",
+			"Speed"             : "Velocity",
+			"Total Length: "    : "L: ",
+			"Max Elevation: "   : "E Max: ",
+			"Min Elevation: "   : "E Min: ",
+			"Avg Elevation: "   : "E Avg: ",
+			"Total Time: "      : "T: ",
+			"Total Ascent: "    : "Asc: ",
+			"Total Descent: "   : "Desc: ",
+			"Min Slope: "       : "S Min: ",
+			"Max Slope: "       : "S Max: ",
+			"Avg Slope: "       : "S Avg: ",
+			"Min Speed: "       : "V Min: ",
+			"Max Speed: "       : "V Max: ",
+			"Avg Speed: "       : "V Avg: ",
+			"Min Acceleration: ": "A Min: ",
+			"Max Acceleration: ": "A Max: ",
+			"Avg Acceleration: ": "A Avg: ",
+		});
+
+		// Enable a custom locale
+		// L.setLocale('en:18');
+
+		// You can also override a previously defined object
+		L.locales['en'] = L.extend({
+			"y: "               : "",
+			"x: "               : "",
+			"t: "               : "",
+			"T: "               : "",
+			"m: "               : "",
+			"v: "               : "",
+			"a: "               : "",
+		}, L.locales['en']);
+
+		// Switch the language
+		L.setLocale('en');
+
+	</script>
+</body>
+
+</html>

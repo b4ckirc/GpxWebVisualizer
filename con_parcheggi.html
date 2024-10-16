@@ -109,13 +109,20 @@
 		
 		let map = L.map('map', opts.map);
 		
-		const park1 = L.marker([45.503234, 10.738998]).addTo(map)
+		var parkingIcon = L.icon({
+			iconUrl: './images/parking.png',
+			iconSize: [32, 32], // dimensione dell'icona
+			iconAnchor: [16, 32], // punto ancorato della mappa
+			popupAnchor: [-3, -76] // dove compare il popup rispetto all'ancora
+		});
+		
+		const park1 = L.marker([45.503234, 10.738998], { icon: parkingIcon}).addTo(map)
 		.bindPopup('<b>Parcheggio</b><br />Parcheggio riservato agli atleti in gara.').openPopup();
 		
-		const park2 = L.marker([45.502692, 10.733912]).addTo(map)
+		const park2 = L.marker([45.502692, 10.733912], { icon: parkingIcon}).addTo(map)
 		.bindPopup('<b>Parcheggio</b><br />Parcheggio riservato agli atleti in gara.').openPopup();
 		
-		const park3 = L.marker([45.500271, 10.740516]).addTo(map)
+		const park3 = L.marker([45.500271, 10.740516], { icon: parkingIcon}).addTo(map)
 		.bindPopup('<b>Parcheggio</b><br />Parcheggio riservato agli atleti in gara.').openPopup();
 		
 		let startIcon = L.icon({
